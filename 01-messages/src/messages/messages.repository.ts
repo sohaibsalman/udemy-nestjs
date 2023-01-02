@@ -4,16 +4,16 @@ import { readFile, writeFile } from 'fs/promises';
 @Injectable()
 export class MessagesRepository {
   async findOne(id: string) {
-    const data = this.getFileContent();
+    const data = await this.getFileContent();
     return data[id];
   }
 
   async findAll() {
-    return this.getFileContent();
+    return await this.getFileContent();
   }
 
   async add(content: string) {
-    const data = this.getFileContent();
+    const data = await this.getFileContent();
     const id = Date.now();
     data[id] = { id, content };
     await writeFile('messages.json', JSON.stringify(data));
