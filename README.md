@@ -6,13 +6,18 @@ This repository contains the practice projects developed during this course.
 
 ## Nest JS concepts
 
-### Basics of nest
+### Basics of NestJS
 Every server has the following pattern:
 
-| Pattern | Nest Equivalant |
+| Pattern | Nest Equivalent |
 |--|--|
 | Validate incoming data | Pipes |
 | Make sure user is authenticated| Guards |
 | Route the request to a particular function| Controller|
 | Run business logic| Service |
-| Acess Database| Repository |
+| Access Database| Repository |
+
+
+#### Validation Pipe
+1. class-validation package is used for the validation of DTO
+2. class-transformer package is used to transfer incoming JSON object to JS class
