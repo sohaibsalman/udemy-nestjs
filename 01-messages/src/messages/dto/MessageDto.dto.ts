@@ -1,0 +1,3 @@
+class MessageDto {
+  content: string;
+}
