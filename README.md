@@ -21,3 +21,10 @@ Every server has the following pattern:
 #### Validation Pipe
 1. class-validation package is used for the validation of DTO
 2. class-transformer package is used to transfer incoming JSON object to JS class
+
+
+#### Dependency Injection
+Steps to enable DI between multiple modules
+1. Add the service (to be used as dependency) in the list of export of the module where it is defined
+2. Add the service (to be used as dependency) in the list of imports of the module where it is being used
+3. Define constructor and add the service as argument
