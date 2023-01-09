@@ -8,6 +8,7 @@ import {
   Patch,
   Delete,
   NotFoundException,
+  Session,
 } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
@@ -16,6 +17,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { BadRequestException } from '@nestjs/common/exceptions';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -26,13 +28,29 @@ export class UsersController {
   ) {}
 
   @Post('/signup')
-  async createUser(@Body() body: CreateUserDto) {
-    return await this.authService.signup(body.email, body.password);
+  async createUser(@Body() body: CreateUserDto, @Session() session: any) {
+    const user = await this.authService.signup(body.email, body.password);
+    session.userId = user.id;
+    return user;
   }
 
   @Post('/signin')
-  async signin(@Body() body: CreateUserDto) {
-    return await this.authService.signin(body.email, body.password);
+  async signin(@Body() body: CreateUserDto, @Session() session: any) {
+    const user = await this.authService.signin(body.email, body.password);
+    session.userId = user.id;
+    return user;
+  }
+
+  @Get('/current-user')
+  async getCurrentUser(@Session() session: any) {
+    const user = await this.userService.findOne(session.userId);
+    if (!user) throw new BadRequestException('User not logged in');
+    return user;
+  }
+
+  @Get('/signout')
+  signout(@Session() session: any) {
+    session.userId = null;
   }
 
   @Get('/:id')
