@@ -5,7 +5,7 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 // add currentUser property to incoming requests
 export const CurrentUser = createParamDecorator(
   (data: never, context: ExecutionContext) => {
-    const request = context.switchToHttp().getResponse();
-    return request.session.currentUser;
+    const request = context.switchToHttp().getRequest();
+    return request.currentUser;
   },
 );

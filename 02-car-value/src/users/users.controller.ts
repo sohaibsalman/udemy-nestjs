@@ -17,7 +17,8 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { BadRequestException } from '@nestjs/common/exceptions';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { User } from './user.entity';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -42,9 +43,7 @@ export class UsersController {
   }
 
   @Get('/current-user')
-  async getCurrentUser(@Session() session: any) {
-    const user = await this.userService.findOne(session.userId);
-    if (!user) throw new BadRequestException('User not logged in');
+  async getCurrentUser(@CurrentUser() user: User) {
     return user;
   }
 
