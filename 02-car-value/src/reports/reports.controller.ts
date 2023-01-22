@@ -8,20 +8,25 @@ import { User } from '../users/user.entity';
 import { ReportDto } from './dtos/report.dto';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { ApproveReportDto } from './dtos/approve-report.dto';
+import { IsAdmin } from '../decorators/is-admin.decorator';
 
 @Controller('reports')
 export class ReportsController {
-    constructor(private reportsService: ReportsService) { }
+  constructor(private reportsService: ReportsService) {}
 
-    @Post()
-    @UseAuth()
-    @Serialize(ReportDto)
-    async createReport(@CurrentUser() user: User, @Body() reportDto: CreateReportDto) {
-        return await this.reportsService.create(reportDto, user);
-    }
+  @Post()
+  @UseAuth()
+  @Serialize(ReportDto)
+  async createReport(
+    @CurrentUser() user: User,
+    @Body() reportDto: CreateReportDto,
+  ) {
+    return await this.reportsService.create(reportDto, user);
+  }
 
-    @Patch("/:id")
-    async approveReport(@Param('id') id: string, @Body() body: ApproveReportDto) {
-        return await this.reportsService.approve(parseInt(id), body.isApproved);
-    }
+  @Patch('/:id')
+  @IsAdmin()
+  async approveReport(@Param('id') id: string, @Body() body: ApproveReportDto) {
+    return await this.reportsService.approve(parseInt(id), body.isApproved);
+  }
 }
