@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Patch, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Get,
+  Query,
+} from '@nestjs/common';
 
 import { ReportsService } from './reports.service';
 import { CreateReportDto } from './dtos/create-report.dto';
@@ -9,6 +17,7 @@ import { ReportDto } from './dtos/report.dto';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { ApproveReportDto } from './dtos/approve-report.dto';
 import { IsAdmin } from '../decorators/is-admin.decorator';
+import { GetEstimatesDto } from './dtos/get-estimates.dto';
 
 @Controller('reports')
 export class ReportsController {
@@ -29,4 +38,7 @@ export class ReportsController {
   async approveReport(@Param('id') id: string, @Body() body: ApproveReportDto) {
     return await this.reportsService.approve(parseInt(id), body.isApproved);
   }
+
+  @Get()
+  async getEstimates(@Query() query: GetEstimatesDto) {}
 }
