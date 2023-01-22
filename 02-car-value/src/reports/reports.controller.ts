@@ -40,5 +40,7 @@ export class ReportsController {
   }
 
   @Get()
-  async getEstimates(@Query() query: GetEstimatesDto) {}
+  async getEstimates(@Query() query: GetEstimatesDto) {
+    return await this.reportsService.getEstimates(query);
+  }
 }
