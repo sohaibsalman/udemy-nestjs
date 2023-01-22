@@ -15,4 +15,10 @@ export class ReportsService {
         report.user = user;
         return await this.repo.save(report);
     }
+
+    async approve(id: number, isApproved: boolean) {
+        const report = await this.repo.findOne({ where: { id } });
+        report.isApproved = isApproved;
+        return await this.repo.save(report);
+    }
 }

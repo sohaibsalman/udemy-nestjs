@@ -1,4 +1,4 @@
-import { IsString, IsNumber, Min, Max, IsLatitude, IsLongitude } from 'class-validator'
+import { IsString, IsNumber, Min, Max, IsLatitude, IsLongitude, IsBoolean } from 'class-validator'
 
 export class CreateReportDto {
     @IsString()
@@ -25,4 +25,6 @@ export class CreateReportDto {
     @IsNumber()
     @Min(0)
     price: number;
+
+    isApproved: boolean;
 }
