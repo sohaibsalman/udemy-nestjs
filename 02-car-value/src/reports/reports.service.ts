@@ -11,6 +11,6 @@ export class ReportsService {
 
     async create(reportDto: CreateReportDto) {
         const report = this.repo.create(reportDto);
-        return this.repo.save(report);
+        return await this.repo.save(report);
     }
 }
