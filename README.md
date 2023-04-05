@@ -1,6 +1,6 @@
 # NestJS: The Complete Developer's Guide - Udemy Course
 
-Repository for practicing the material thought in **NestJS: The Complete Developer's Guide** course at udemt by **Stephen Grider**. [Udemy Course Link](https://www.udemy.com/course/nestjs-the-complete-developers-guide)
+Repository for practicing the material thought in **NestJS: The Complete Developer's Guide** course at udemy by **Stephen Grider**. [Udemy Course Link](https://www.udemy.com/course/nestjs-the-complete-developers-guide)
 
 This repository contains the practice projects developed during this course.
 
